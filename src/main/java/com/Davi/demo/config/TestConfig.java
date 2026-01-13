@@ -1,14 +1,8 @@
 package com.Davi.demo.config;
 
-import com.Davi.demo.entities.Category;
-import com.Davi.demo.entities.Order;
-import com.Davi.demo.entities.Product;
-import com.Davi.demo.entities.User;
+import com.Davi.demo.entities.*;
 import com.Davi.demo.entities.enums.OrderStatus;
-import com.Davi.demo.repositories.CategoryRepository;
-import com.Davi.demo.repositories.OrderRepository;
-import com.Davi.demo.repositories.ProductRepository;
-import com.Davi.demo.repositories.UserRepository;
+import com.Davi.demo.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -32,6 +26,9 @@ public class TestConfig implements CommandLineRunner {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -67,6 +64,13 @@ public class TestConfig implements CommandLineRunner {
 
         userRepository.saveAll(Arrays.asList(u1, u2));
         orderRepository.saveAll(Arrays.asList(o1, o2, o3));
+
+        OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
+        OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice());
+        OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
+        OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
+
+        orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
 
     }
 }
